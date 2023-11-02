@@ -2,10 +2,6 @@
 
 require_once(dirname(__FILE__) . '/DB_Backup.php');
 
-/**
-* Backup Class
-*/
-
 class Backup extends DB_Backup
 {
 
