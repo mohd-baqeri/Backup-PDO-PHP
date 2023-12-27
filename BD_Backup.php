@@ -26,11 +26,17 @@ class DB_Backup
         $stmt->execute();
         $rows = $stmt->fetchAll($this->obj);
 
+	// GET DATABASE VERSION
+        $db_version_query = $this->pdo->query("SELECT VERSION() AS `version`");
+        $db_version_query->execute();
+        $db_version = $db_version_query->fetch($this->obj);
+
         date_default_timezone_set('Asia/kabul');
 
         $data = "-- https://github.com/mohd-baqeri/Backup-PDO-PHP" . PHP_EOL;
         $data .= "-- DATABASE: " . $this->database . PHP_EOL;
-        $data .= "-- DATE: " . date('Y-m-d H:i:s') . PHP_EOL . PHP_EOL . PHP_EOL;
+        $data .= "-- VERSION: " . $db_version->version . PHP_EOL;
+        $data .= "-- DATE: " . date('Y-m-d H:i:s') . ' (Asia/kabul)'  . PHP_EOL . PHP_EOL . PHP_EOL;
         $data .= "START TRANSACTION;" . PHP_EOL . PHP_EOL;
 
         // GET TABLES
